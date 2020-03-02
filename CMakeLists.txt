@@ -1,0 +1,12 @@
+cmake_minimum_required(VERSION 3.15)
+
+set(CMAKE_CXX_STANDARD 20)
+set(PROJECT_NAME VENUS)
+set(VENUS_SOURCE_DIR ${PROJECT_SOURCE_DIR}/src)
+set(VENUS_ROOT_DIR ${PROJECT_SOURCE_DIR})
+set(VENUS_RESOURCE_DIR ${PROJECT_SOURCE_DIR}/resources)
+
+set(APP_NAME Venus)
+project(${PROJECT_NAME})
+
+add_subdirectory(src)

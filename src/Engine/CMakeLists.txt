@@ -1,0 +1,5 @@
+
+find_package(glfw3 REQUIRED) # GLFW lib
+
+INCLUDE_DIRECTORIES(${GLFW_INCLUDE_DIR} ${MOLTENVK_INCLUDE_DIR})
+target_link_libraries(${PROJECT_NAME}  ${GLFW_LIBRARIES})
