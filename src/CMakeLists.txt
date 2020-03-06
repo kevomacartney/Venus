@@ -1,21 +1,16 @@
-set (VENUS_FRAMEWORK_VERSION_MAJOR 1)
-set (VENUS_FRAMEWORK_VERSION_MINOR 1)
-set (VENUS_FRAMEWORK_VERSION_PATCH 0)
-set (VENUS_FRAMEWORK_CURRENT_RELEASE_YEAR 2020)
+cmake_minimum_required(VERSION 3.15)
 
-file(GLOB VENUS_SRC
-        "*.h"
-        "*.cpp"
-        )
+set(APP_NAME Venus)
+set(ENGINE_LIB_NAME Venus-Engine)
 
-add_executable(${PROJECT_NAME} ${VENUS_SRC})
-
-# Move project Data to directory
-add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy_directory
-        ${VENUS_RESOURCE_DIR}
-        ${PROJECT_BINARY_DIR}/Data
-        COMMENT "Copying Data folder to build directory"
-        )
+project(${APP_NAME})
 
 add_subdirectory(Engine)
+
+add_executable(${APP_NAME} main.cpp)
+
+target_link_libraries(${APP_NAME}
+        ${ENGINE_LIB_NAME}
+        )
+
+target_include_directories(${APP_NAME} PUBLIC .)

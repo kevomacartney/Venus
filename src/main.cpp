@@ -1,6 +1,8 @@
-#include <iostream>
-#include <gl
+#include "Engine/Core/Threading/engineThread.h"
+
 int main() {
-    std::cout << "Hello, World!" << std::endl;
-    return 0;
+    using namespace Engine::Core::Threading;
+
+    EngineThread thread;
+    thread.run();
 }
