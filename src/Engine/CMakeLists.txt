@@ -18,11 +18,14 @@ set(GLM_DIR ${VENDORS_DIR}/glm)
 
 include(GNUInstallDirs)
 include(Utility/CMakeSources.cmake)
+include(Plugins/Glfw/CMakeSources.cmake)
 
 # Add core
 add_subdirectory(Core)
 # Add plugins
 add_subdirectory(Plugins/VulkanApi)
+# Add IOS
+add_subdirectory(Mobile/IOS)
 
 # Sourcecode for startup class
 set(STARTUP_CLASS_SRC
@@ -32,7 +35,10 @@ set(STARTUP_CLASS_SRC
 # project source code
 set(VENUS_ENGINE_SRC
         ${STARTUP_CLASS_SRC}
+        ${GLFW_API_PLUGIN_SRC}
         )
+
+#find_package(Vulkan REQUIRED)
 
 add_library(${ENGINE_NAME} SHARED
         ${VENUS_ENGINE_SRC}

@@ -5,7 +5,9 @@ set(ENGINE_LIB_NAME Venus-Engine)
 
 project(${APP_NAME})
 
-add_subdirectory(Engine)
+add_subdirectory(Engine) # Engine directory
+add_subdirectory(Editor) # Editor directory
+
 
 add_executable(${APP_NAME} main.cpp)
 

@@ -8,6 +8,5 @@ set(VENUS_RESOURCE_DIR ${PROJECT_SOURCE_DIR}/resources)
 
 project(${PROJECT_NAME})
 
-add_subdirectory(src)
 add_subdirectory(vendors)
-
+add_subdirectory(src)

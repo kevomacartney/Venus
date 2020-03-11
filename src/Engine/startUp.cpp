@@ -3,16 +3,14 @@
 //
 
 #include "startUp.h"
-#include "iostream"
-#include <GLFW/glfw3.h>
-#include <imgui.h>
-#include <glm/glm.hpp>
-void Engine::StartUp::Ignition() {
-    std::cout << "Engine ignition\n";
+#include <Plugins/Glfw/glfwUtility.h>
 
-    glfwInit();
-    ImGui::Text("Hello, world %d", 123);
-    glm::mat4();
+void Engine::StartUp::Ignition() {
+    using namespace Engine;
+
+    Plugins::Glfw::GlfwUtility glfwUtility;
+
+    glfwUtility.initalizeGlfw();
 }
 
 int Engine::StartUp::go() {
