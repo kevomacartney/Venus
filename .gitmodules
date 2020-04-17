@@ -16,3 +16,18 @@
 [submodule "vendors/MoltenVK"]
      	path = vendors/MoltenVK
      	url = https://github.com/KhronosGroup/MoltenVK
+[submodule "vendors/rapidjson"]
+	path = vendors/rapidjson
+	url = https://github.com/Tencent/rapidjson.git
+[submodule "vendors/fruit"]
+	path = vendors/fruit
+	url = https://github.com/google/fruit.git
+[submodule "vendors/backward-cpp"]
+	path = vendors/backward-cpp
+	url = https://github.com/bombela/backward-cpp.git
+[submodule "vendors/PhysX"]
+	path = vendors/PhysX
+	url = git@github.com:NVIDIAGameWorks/PhysX.git
+[submodule "vendors/fmt"]
+	path = vendors/fmt
+	url = https://github.com/fmtlib/fmt.git

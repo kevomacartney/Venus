@@ -1,0 +1,8 @@
+//
+// Created by Kelvin Macartney on 25/03/2020.
+//
+
+#ifndef VENUS_WINDOWDESCRIPTION_H
+#define VENUS_WINDOWDESCRIPTION_H
+
+#endif //VENUS_WINDOWDESCRIPTION_H
