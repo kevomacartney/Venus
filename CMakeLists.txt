@@ -8,5 +8,8 @@ set(VENUS_RESOURCE_DIR ${PROJECT_SOURCE_DIR}/resources)
 
 project(${PROJECT_NAME})
 
-add_subdirectory(vendors)
-add_subdirectory(src)
+list (APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+
+add_subdirectory(Vendors)
+add_subdirectory(Src)
+

@@ -19,9 +19,6 @@
 [submodule "vendors/rapidjson"]
 	path = vendors/rapidjson
 	url = https://github.com/Tencent/rapidjson.git
-[submodule "vendors/fruit"]
-	path = vendors/fruit
-	url = https://github.com/google/fruit.git
 [submodule "vendors/backward-cpp"]
 	path = vendors/backward-cpp
 	url = https://github.com/bombela/backward-cpp.git

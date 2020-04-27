@@ -1,8 +1,0 @@
-//
-// Created by Kelvin Macartney on 14/04/2020.
-//
-
-#ifndef VENUS_CORETHREADQUEUEFLAG_H
-#define VENUS_CORETHREADQUEUEFLAG_H
-
-#endif //VENUS_CORETHREADQUEUEFLAG_H

@@ -1,0 +1,17 @@
+The Mono binding bits are all in proprietary Unity C++ of course, but there's nothing stopping a C# application from building other C# assemblies. Unity is doing, roughly:
+
+detecting a change to source
+
+recompiling the assemblies to a temporary location
+
+serializing the current editor state to a temporary store
+
+unloading the currently loaded assemblies
+
+copying the new assemblies over the old ones
+
+loading the new assemblies
+
+deserializing the editor state from the temporary store
+
+cleanup
