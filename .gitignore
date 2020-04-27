@@ -356,6 +356,7 @@ MigrationBackup/
 
 # Cmake
 cmake-build-debug
+cmake-build-release
 CMakeFiles
 CMakeScripts
 Testing
