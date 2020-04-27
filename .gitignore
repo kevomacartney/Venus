@@ -369,3 +369,6 @@ _deps
 
 #MacOS
 .DS_Store
+
+#Qt
+build-Venus-Sandbox

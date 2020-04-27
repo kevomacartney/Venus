@@ -8,6 +8,11 @@
 #include "asyncWaitHandle.h"
 
 namespace Venus::Utility::Threading {
+
+    /**
+     * @copydoc Venus::Utility::Threading::AsyncWaitHandle
+     * Allows a threads to block or release threads of AsyncWaitHandle wait handle
+     */
     class AsyncWaitHandleImpl : public AsyncWaitHandle {
     public:
         AsyncWaitHandleImpl() = default;

@@ -9,6 +9,10 @@
 #include <atomic>
 
 namespace Venus::Utility::Threading {
+    /**
+     *  Class allows threads to communicate with each other by signaling. Typically, one or more threads block on an AsyncWaitHandle
+     * @
+     */
     class AsyncWaitHandle {
     public:
         AsyncWaitHandle() = default;

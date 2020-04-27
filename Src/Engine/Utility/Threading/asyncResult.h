@@ -59,7 +59,7 @@ namespace Venus::Utility::Threading {
         volatile bool _isCompleted{false};
     };
 
-    /**  Common base for all TAsyncOp specializations.*/
+    /**  Common base for all AsyncResult specializations. */
     class AsyncResult {
     public:
         explicit AsyncResult(std::shared_ptr<AsyncResultSyncData> syncData)
