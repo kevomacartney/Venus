@@ -5,7 +5,6 @@
 #ifndef VENUS_VULKANMANAGER_H
 #define VENUS_VULKANMANAGER_H
 
-
 namespace Venus::Core::Vulkan {
     class VulkanManager {
     public:

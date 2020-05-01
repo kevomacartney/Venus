@@ -12,8 +12,8 @@ namespace Venus::Core::Managers {
     }
 
     void RenderWindowManager::createLogger() {
-        auto loggerType = Factories::Logging::LoggerType::ColouredStdOut;
-        this->_logger = Factories::Logging::LoggingFactory::CreateLogger(loggerType, "Venus::Managers::RenderWindowManager");
+        auto loggerType = Factories::LoggerType::ColouredStdOut;
+        this->_logger = Factories::LoggingFactory::CreateLogger(loggerType, "Venus::Managers::RenderWindowManager");
     }
 
     void RenderWindowManager::ignition() {

@@ -61,9 +61,8 @@ namespace Venus::Plugins::Glfw {
     }
 
     void GlfwUtility::createInstanceLogger() {
-        using namespace Venus::Factories::Logging;
-        this->_logger = LoggingFactory::CreateLogger(LoggerType::ColouredStdOut,
-                                                     LOGGER_NAME + std::to_string(this->_windowId));
+        this->_logger = Factories::LoggingFactory::CreateLogger(Factories::LoggerType::ColouredStdOut,
+                                                                LOGGER_NAME + std::to_string(this->_windowId));
     }
 
     void GlfwUtility::prepareTermination() {

@@ -10,7 +10,7 @@
 #include <spdlog/sinks/rotating_file_sink.h>
 #include <spdlog/sinks/basic_file_sink.h>
 
-namespace Venus::Factories::Logging {
+namespace Venus::Factories {
     /**
      * Defines the different types of loggers the factory can create
      */

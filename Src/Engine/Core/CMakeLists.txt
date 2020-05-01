@@ -25,7 +25,7 @@ add_library(${MODULE_NAME} SHARED
 
 target_link_libraries(${MODULE_NAME}
         ${ENGINE_FACTORY_LIB_NAME}
-        ${ENGINE_PLUGINS_LIB_NAME}
+        ${ENGINE_VULKAN_LIB_NAME}
         ${ENGINE_UTILITY_LIB_NAME}
         ${ENGINE_GLFW_PLUGIN_LIB_NAME}
         ${GLFW_LIB_NAME}
@@ -34,7 +34,6 @@ target_link_libraries(${MODULE_NAME}
         ${SPDLOG_LIB_NAME}
         ${ENGINE_CORETHREAD_LIB_NAME}
         )
-
 
 target_include_directories(${MODULE_NAME} PUBLIC .)
 
