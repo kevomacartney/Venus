@@ -40,7 +40,7 @@ namespace Venus::Plugins::Glfw {
 
     void GlfwUtility::update() {
         if (this->_isTerminated) {
-            _logger->warn("Window {} NOT updated because window has been terminated", this->_windowId);
+            _logger->warn("Window {} NOT updated. Window is terminated", this->_windowId);
             return;
         }
 
@@ -61,8 +61,8 @@ namespace Venus::Plugins::Glfw {
     }
 
     void GlfwUtility::createInstanceLogger() {
-        this->_logger = Factories::LoggingFactory::CreateLogger(Factories::LoggerType::ColouredStdOut,
-                                                                LOGGER_NAME + std::to_string(this->_windowId));
+        this->_logger = Factories::LoggingFactory::CreateLogger_Safe(Factories::LoggerType::ColouredStdOut,
+                                                                     LOGGER_NAME + std::to_string(this->_windowId));
     }
 
     void GlfwUtility::prepareTermination() {
@@ -98,5 +98,16 @@ namespace Venus::Plugins::Glfw {
     GlfwUtility::~GlfwUtility() {
         if (!this->_isTerminated)
             this->prepareTermination();
+    }
+
+    const char **GlfwUtility::getGlfwExtensions(uint32_t &extensionCount) {
+        this->throwIfTerminated();
+
+        return glfwGetRequiredInstanceExtensions(&extensionCount);
+    }
+
+    void GlfwUtility::throwIfTerminated() {
+        if(this->_isTerminated)
+            VENUS_EXCEPT(InternalErrorException, "There was an internal Window error")
     }
 }

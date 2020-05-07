@@ -12,6 +12,11 @@
 #include <Events/event.h>
 
 namespace Venus::Plugins::Glfw {
+    /**
+     * Utility class that handles low level GLFW communication
+     * @note Each instance creates a new glfw window
+     * @note Only one instance per window, EXTERNAL SYNC REQUIRED
+     */
     class GlfwUtility {
     public:
         /** Constructor */
@@ -42,13 +47,32 @@ namespace Venus::Plugins::Glfw {
          */
         void update();
 
+        /**
+          * Gets the render surface's extensions
+          * @param extensionCount The extension Count
+          * @return Pointer to extensions
+          */
+        const char **getGlfwExtensions(uint32_t &extensionCount);
+
         Utility::Events::Event<std::function<void()>> WindowClosedEvent;
 
         ~GlfwUtility();
+
     private:
+        /** Initialises a new glfw window instance from the description*/
         void initialiseWindowInstance(const WindowDescription &windowDescription, GLFWwindow *parent);
 
+        /** Registers a glfw error callback to a local function */
         static void registerToGlfwErrorCallback();
+
+        /** Initialises a logger */
+        void createInstanceLogger();
+
+        /** Throws an internal exception if the utility has been terminated */
+        void throwIfTerminated();
+
+        /** Prepares utility to terminate and kill the window*/
+        void prepareTermination();
 
         static std::atomic_bool _glfwErrorCallbackRegistered;
 
@@ -59,12 +83,6 @@ namespace Venus::Plugins::Glfw {
 
         GLFWwindow *_windowInstance{nullptr};
         std::shared_ptr<spdlog::logger> _logger;
-
-        /** Initialises a logger */
-        void createInstanceLogger();
-
-        /** Prepares utility to terminate and kill the window*/
-        void prepareTermination();
     };
 }
 
