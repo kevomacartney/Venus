@@ -1,26 +1,22 @@
 cmake_minimum_required(VERSION 3.15)
 
-set(MODULE_NAME "Venus-Engine-Vulkan")
-project(${MODULE_NAME} VERSION 1.0.1 DESCRIPTION "Venus Engine plugins")
+set(MODULE_NAME "Venus-Engine-3DEngine")
+project(${MODULE_NAME} VERSION 1.0.1 DESCRIPTION "Venus 3D Engine lib")
 
 include(GNUInstallDirs)
 include(CMakeSources.cmake)
 
-set(ENGINE_VULKAN_PLUGIN_SRC
-        ${VULKAN_PLUGIN_SRC})
+set(ENGINE_3DENGINE_SRC
+        ${3DENGINE_SRC})
 
 # project source code
 add_library(${MODULE_NAME} SHARED
-        ${ENGINE_VULKAN_PLUGIN_SRC}
+        ${ENGINE_3DENGINE_SRC}
         )
-
-# include vulkan
-include_directories(${Vulkan_INCLUDE_DIRS})
 
 target_link_libraries(${MODULE_NAME}
         ${Vulkan_LIBRARIES}
         ${ENGINE_UTILITY_LIB_NAME}
-        ${ENGINE_FACTORY_LIB_NAME}
         )
 
 target_include_directories(${MODULE_NAME} PUBLIC .)

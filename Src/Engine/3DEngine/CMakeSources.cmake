@@ -1,13 +1,12 @@
 
-set(VULKAN_INC # include directories
-        "vulkanUtility.h"
+set(INCLUDE # include directories
+        "renderSurface.h"
         )
 
-set(VULKAN_SRC # source directories
-        "vulkanUtility.cpp"
+set(SRC # source directories
         )
 
-set(VULKAN_PLUGIN_SRC
-        ${VULKAN_INC}
-        ${VULKAN_SRC}
+set(3DENGINE_SRC
+        ${INCLUDE}
+        ${SRC}
         )
