@@ -13,9 +13,6 @@
 [submodule "vendors/imgui"]
  	path = vendors/imgui
  	url = https://github.com/ocornut/imgui
-[submodule "vendors/MoltenVK"]
-     	path = vendors/MoltenVK
-     	url = https://github.com/KhronosGroup/MoltenVK
 [submodule "vendors/rapidjson"]
 	path = vendors/rapidjson
 	url = https://github.com/Tencent/rapidjson.git
@@ -28,3 +25,12 @@
 [submodule "vendors/fmt"]
 	path = vendors/fmt
 	url = https://github.com/fmtlib/fmt.git
+[submodule "vendors/Vulkan-ValidationLayers"]
+	path = vendors/Vulkan-ValidationLayers
+	url = git@github.com:KhronosGroup/Vulkan-ValidationLayers.git
+[submodule "vendors/Vulkan-Headers"]
+	path = vendors/Vulkan-Headers
+	url = git@github.com:KhronosGroup/Vulkan-Headers.git
+[submodule "vendors/glslang"]
+	path = vendors/glslang
+	url = git@github.com:KhronosGroup/glslang.git
