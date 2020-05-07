@@ -5,11 +5,12 @@ set(VENUS_ENGINE_VERSION 1.0.1)
 project(${ENGINE_NAME} VERSION 1.0.1 DESCRIPTION "Venus Engine")
 
 set(CORE_LIB_NAME "Venus-Engine-Core" CACHE INTERNAL "")
-set(ENGINE_PLUGINS_LIB_NAME "Venus-Engine-Plugins" CACHE INTERNAL "")
+set(ENGINE_VULKAN_LIB_NAME "Venus-Engine-Vulkan" CACHE INTERNAL "")
 set(ENGINE_FACTORY_LIB_NAME "Venus-Engine-Factories" CACHE INTERNAL "")
 set(ENGINE_UTILITY_LIB_NAME "Venus-Engine-Utility" CACHE INTERNAL "")
 set(ENGINE_GLFW_PLUGIN_LIB_NAME "Venus-Engine-Glfw" CACHE INTERNAL "")
 set(ENGINE_CORETHREAD_LIB_NAME "Venus-Engine-CoreThread" CACHE INTERNAL "")
+set(ENGINE_3DENGINE_LIB_NAME "Venus-Engine-3DEngine" CACHE INTERNAL "")
 
 set(VENDORS_DIR ${PROJECT_SOURCE_DIR}/vendors)
 
@@ -45,12 +46,15 @@ add_subdirectory(Mobile/IOS)
 add_subdirectory(Utility)
 # Corethread
 add_subdirectory(CoreThread)
+# 3d Engine
+add_subdirectory(3DEngine)
 
 # Sourcecode for startup class
 set(STARTUP_CLASS_SRC
         venusApplication.h
         venusApplication.cpp
         )
+
 # project source code
 set(VENUS_ENGINE_SRC
         ${STARTUP_CLASS_SRC}
@@ -61,27 +65,26 @@ add_library(${ENGINE_NAME} SHARED
         ${VENUS_ENGINE_SRC}
         )
 
+#include directories
+include_directories(${Vulkan_INCLUDE_DIRS})
+
 target_include_directories(${ENGINE_NAME} PUBLIC .)
 
 target_link_libraries(${ENGINE_NAME}
         ${CORE_LIB_NAME}
         ${ENGINE_FACTORY_LIB_NAME}
-        ${ENGINE_PLUGINS_LIB_NAME}
         ${ENGINE_UTILITY_LIB_NAME}
+        ${ENGINE_VULKAN_LIB_NAME}
         ${ENGINE_GLFW_PLUGIN_LIB_NAME}
+        ${ENGINE_3DENGINE_LIB_NAME}
         ${GLFW_LIB_NAME}
         ${IMGUI_LIB_NAME}
         ${GLM_LIB_NAME}
         ${SPDLOG_LIB_NAME}
         ${FMT_LIB_NAME}
+        ${Vulkan_LIBRARIES}
         )
 
-find_package(Vulkan REQUIRED)
-
-if(VULKAN_FOUND)
-    include_directories(${Vulkan_INCLUDE_DIRS})
-    target_link_libraries(${ENGINE_NAME} ${Vulkan_LIBRARIES})
-endif()
 
 install(TARGETS ${ENGINE_NAME}
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}

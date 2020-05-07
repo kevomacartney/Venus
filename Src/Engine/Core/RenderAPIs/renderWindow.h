@@ -43,6 +43,9 @@ namespace Venus::Core::RenderApis {
         /** Called by the core thread when renderApi shutdowns  */
         void shutdown() override;
 
+        /** @copydoc Venus::Core::RenderApis::RenderSurface */
+        const char **getExtensionCount(uint32_t &extensionCount) override;
+
         /** Destructor*/
         ~RenderWindow() = default;
 
@@ -57,6 +60,7 @@ namespace Venus::Core::RenderApis {
         std::shared_ptr<Plugins::Glfw::WindowProperties> _windowProperties{nullptr};
         Plugins::Glfw::WindowDescription _description;
 
+        Mutex _glftUtilMutex{};
         Mutex _windowPropsMutex;
     };
 }

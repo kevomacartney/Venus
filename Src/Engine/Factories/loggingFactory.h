@@ -5,6 +5,7 @@
 #ifndef VENUS_LOGGINGFACTORY_H
 #define VENUS_LOGGINGFACTORY_H
 
+#include <map>
 #include <spdlog/spdlog.h>
 #include <spdlog/sinks/stdout_color_sinks.h>
 #include <spdlog/sinks/rotating_file_sink.h>
@@ -31,7 +32,7 @@ namespace Venus::Factories {
          * @return A pointer to the logger
          */
         static std::shared_ptr<spdlog::logger>
-        CreateLogger(LoggerType type, const std::string &name, const std::string &fileName = "log.log");
+        CreateLogger_Safe(LoggerType type, const std::string &name, const std::string &fileName = "log.log");
 
         /**
          * Creates a new logger by calling the factory function called
@@ -39,6 +40,16 @@ namespace Venus::Factories {
          * @return The logger create by the factory function
          */
         static std::shared_ptr<spdlog::logger> CreateLogger(std::shared_ptr<spdlog::logger> (*f)());
+
+        /**
+         * Generates a path to the log file that is system aware
+         * @param loggerName The logger file name
+         * @return Path to the log file name
+         */
+        static std::string createLogFilePath(const std::string &loggerName);
+
+    private:
+        std::map<std::string, spdlog::sink_ptr> FileToSinkMap{};
     };
 }
 

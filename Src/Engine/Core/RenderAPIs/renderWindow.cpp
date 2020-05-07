@@ -25,6 +25,8 @@ namespace Venus::Core::RenderApis {
     }
 
     void RenderWindow::update() {
+        Lock lock(this->_glftUtilMutex);
+
         getCoreThread()->queueCommand([this] {
                                           this->_glfwUtility->update();
                                       },
@@ -32,9 +34,9 @@ namespace Venus::Core::RenderApis {
     }
 
     void RenderWindow::resize(uint32_t width, uint32_t height) {
-        auto coreThread = CoreThread::instance();
+        Lock lock(this->_glftUtilMutex);
 
-        coreThread->queueCommand([this, width, height]() {
+        getCoreThread()->queueCommand([this, width, height]() {
             {
                 Lock lock(this->_windowPropsMutex);
                 this->_windowProperties->width = width;
@@ -43,25 +45,25 @@ namespace Venus::Core::RenderApis {
 
             this->_glfwUtility->setDimensions(width, height);
         });
-        coreThread->submit();
+        getCoreThread()->submit();
     }
 
     void RenderWindow::show() {
-        auto coreThread = CoreThread::instance();
+        Lock lock(this->_glftUtilMutex);
 
-        coreThread->queueCommand([this]() {
+        getCoreThread()->queueCommand([this]() {
             this->_glfwUtility->showWindow(true);
         });
-        coreThread->submit();
+        getCoreThread()->submit();
     }
 
     void RenderWindow::hide() {
-        auto coreThread = CoreThread::instance();
+        Lock lock(this->_glftUtilMutex);
 
-        coreThread->queueCommand([this]() {
+        getCoreThread()->queueCommand([this]() {
             this->_glfwUtility->showWindow(false);
         });
-        coreThread->submit();
+        getCoreThread()->submit();
     }
 
     void RenderWindow::registerToWindowEvents() {
@@ -73,11 +75,23 @@ namespace Venus::Core::RenderApis {
     }
 
     uint32_t RenderWindow::getId() {
+        Lock lock(this->_glftUtilMutex);
         return this->_glfwUtility->getWindowId();
     }
 
     void RenderWindow::shutdown() {
         RenderSurface::shutdown();
+    }
+
+    const char **RenderWindow::getExtensionCount(uint32_t &extensionCount) {
+        Lock lock(this->_glftUtilMutex);
+
+        const char **extensions{nullptr};
+        getCoreThread()->queueCommand([&]() {
+            extensions = this->_glfwUtility->getGlfwExtensions(extensionCount);
+        }, CTQF_InternalQueue | CTQF_BlockUntilComplete);
+
+        return extensions;
     }
 }
 

@@ -79,13 +79,16 @@ namespace Venus {
         /** Called by worker thread to run main loop */
         void _runMainLoop();
 
-        /** Completes the applications initialisation by creating a new thread*/
+        /** Completes the applications initialisation */
         void _completeInitialisation();
 
         static void multiThreadingInitialisation();
 
         /** Initialises the thread pool*/
         static void _initialiseThreadPool();
+
+        /** Initialises the vulkan Api*/
+        void _initialiseVulkan();
     };
 }
 

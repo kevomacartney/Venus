@@ -1,7 +1,6 @@
 set(RENDERAPI_DIR "RenderAPIs")
 
 set(ENGINE_RENDERAPIs_INC
-        "${RENDERAPI_DIR}/renderSurface.h"
         "${RENDERAPI_DIR}/renderWindow.h"
         "${RENDERAPI_DIR}/renderApi.h"
         )

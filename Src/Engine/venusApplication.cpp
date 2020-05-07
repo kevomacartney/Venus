@@ -6,12 +6,11 @@
 
 #include <spdlog/async.h>
 #include <Events/eventDispatcher.h>
-#include <Plugins/Glfw/glfwUtility.h>
 #include <spdlog/sinks/stdout_sinks.h>
 #include <spdlog/sinks/daily_file_sink.h>
 #include <Threading/TaskScheduler/taskScheduler.h>
 #include <Managers/renderWindowManager.h>
-
+#include <Plugins/VulkanApi/vulkanUtility.h>
 
 namespace Venus {
 
@@ -28,13 +27,13 @@ namespace Venus {
 
     int VenusApplication::Ignition(RenderSurfaceType applicationType) {
         _createLogger();
+        this->_logger->info("Application initialization started");
 
         Core::CoreThread::ignite();
-        this->multiThreadingInitialisation();
+        VenusApplication::multiThreadingInitialisation(); // We need to initialise multithreading before starting app thread
+        // because modules being initialised may need to queue work
 
-        this->_logger->info("Application initialised core thread");
-
-        this->_appThread = std::thread(&VenusApplication::_completeInitialisation, this); // run app thread
+        this->_appThread = std::thread(&VenusApplication::_completeInitialisation, this);
         Venus::Core::getCoreThread()->_go(); // run core thread on main thread
 
         this->_appThread.join();
@@ -50,8 +49,20 @@ namespace Venus {
         Venus::Core::Managers::RenderWindowManager::ignite(); // RenderWindowManager
         this->_createMainWindow();
 
+        this->_initialiseVulkan();
+
         this->_logger->info("Application initialization complete");
         this->_runMainLoop();
+    }
+
+    void VenusApplication::_initialiseVulkan() {
+        Plugins::Vulkan::WSIExtensions extensions;
+
+        extensions.Extensions = this->_renderApi
+                ->getRenderWindow()
+                ->getExtensionCount(extensions.ExtensionCount);
+
+        Module<Plugins::Vulkan::VulkanUtility>::ignite(extensions);
     }
 
     void VenusApplication::multiThreadingInitialisation() {
@@ -68,16 +79,16 @@ namespace Venus {
     }
 
     void VenusApplication::_createLogger() {
-        using namespace Venus::Factories::Logging;
-        this->_logger = LoggingFactory::CreateLogger(
+        spdlog::init_thread_pool(8192, 2);
+
+        this->_logger = Factories::LoggingFactory::CreateLogger(
                 []() -> std::__1::shared_ptr<spdlog::logger> {
+                    auto path = Factories::LoggingFactory::createLogFilePath("Venus_Engine.log");
+
                     std::vector<spdlog::sink_ptr> sinks;
-                    sinks.push_back(
-                            std::make_shared<spdlog::sinks::daily_file_sink_st>("logs/engine_logs.log", 23, 59));
+                    sinks.push_back(std::make_shared<spdlog::sinks::daily_file_sink_st>(path, 23, 59));
                     sinks.push_back(std::make_shared<spdlog::sinks::stdout_sink_st>());
-                    // Create a thread pool of 8k max items and 2 thread
-                    spdlog::init_thread_pool(8192, 2);
-                    // Create logger
+
                     auto logger = std::make_shared<spdlog::async_logger>("Venus::Application",
                                                                          begin(sinks), end(sinks),
                                                                          spdlog::thread_pool());
@@ -109,7 +120,8 @@ namespace Venus {
         Venus::Core::CoreThread::shutDown(); // Core thread
         Utility::Events::EventDispatcher::shutDown(); // EventDispatcher
         Venus::Utility::Threading::TaskScheduler::shutDown(); // TaskScheduler
-        Venus::Core::ThreadPool::shutDown();
+        Venus::Core::ThreadPool::shutDown(); // Threadpool
+        Venus::Plugins::Vulkan::VulkanUtility::shutDown(); // Vulkan utility
         spdlog::shutdown();
 
         this->_time = nullptr;

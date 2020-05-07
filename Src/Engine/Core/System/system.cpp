@@ -9,10 +9,10 @@ Venus::Core::System::System() = default;
 void Venus::Core::System::ignition() {
     using namespace Venus;
 
-    this->_logger = Factories::LoggingFactory::CreateLogger(Venus::Factories::LoggerType::DailyFile,
-                                                                     "Engine::System", "Venus::System.log");
+    this->_logger = Factories::LoggingFactory::CreateLogger_Safe(Venus::Factories::LoggerType::DailyFile,
+                                                                 "Venus::Engine::System", "Venus_Engine.log");
 
-    this->_logger->info("System ignited");
+    this->_logger->info("Initialized system");
 }
 
 void Venus::Core::System::shutdown() {

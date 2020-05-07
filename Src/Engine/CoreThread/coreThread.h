@@ -47,7 +47,10 @@ namespace Venus::Core {
         /** Exception throws if the current thread is the core thread */
         static void throwIfCoreThread();
 
-        /** Runs the core thread loop. */
+        /**
+         *  Runs the core thread loop.
+         *  @note Blocks until corethread has been shutdown
+         */
         void _go();
 
         /**
