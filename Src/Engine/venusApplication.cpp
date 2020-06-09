@@ -60,7 +60,7 @@ namespace Venus {
 
         extensions.Extensions = this->_renderApi
                 ->getRenderWindow()
-                ->getExtensionCount(extensions.ExtensionCount);
+                ->getExtensionCount();
 
         Module<Plugins::Vulkan::VulkanUtility>::ignite(extensions);
     }

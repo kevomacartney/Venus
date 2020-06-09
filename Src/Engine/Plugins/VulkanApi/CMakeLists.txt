@@ -24,6 +24,7 @@ target_link_libraries(${MODULE_NAME}
         ${Vulkan_LIBRARIES}
         ${ENGINE_UTILITY_LIB_NAME}
         ${ENGINE_FACTORY_LIB_NAME}
+        ${MAGIC_ENUM_LIBNAME}
         )
 
 target_include_directories(${MODULE_NAME} PUBLIC .)

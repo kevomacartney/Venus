@@ -114,7 +114,7 @@ namespace Venus::Plugins::Vulkan {
     }
 
     void VulkanUtility::_configureDebugMessengerExtension() {
-        auto createInfo = this->_createDebugMessengerCreateInfo();
+        auto createInfo = VulkanUtility::_createDebugMessengerCreateInfo();
         this->_createDebugUtilsMessengerEXT(this->_vulkanInstance, &createInfo);
     }
 
@@ -146,21 +146,30 @@ namespace Venus::Plugins::Vulkan {
 
     void VulkanUtility::shutdown() {
         Module::shutdown();
-        vkDestroyInstance(this->_vulkanInstance, nullptr);
-
         this->_logger->info("Vulkan utility shutting down");
+
+        auto func = (PFN_vkDestroyDebugUtilsMessengerEXT) vkGetInstanceProcAddr(this->_vulkanInstance,
+                                                                                "vkDestroyDebugUtilsMessengerEXT");
+        if(func != nullptr)
+            func(this->_vulkanInstance, this->_debugMessenger, nullptr);
+
+        for(const auto& vulkanDevice : this->_vulkanDevices){
+            vulkanDevice->shutdown();
+        }
+
+        vkDestroyInstance(this->_vulkanInstance, nullptr);
     }
 
     void VulkanUtility::_initialiseVulkanGraphicsCards() {
         uint32_t deviceCount = this->getDeviceCount();
 
-        if(deviceCount < 1)
-            VENUS_EXCEPT(InternalErrorException, "Could not find a GPU that support Vulkan")
+        if (deviceCount < 1) VENUS_EXCEPT(InternalErrorException, "Could not find a GPU that support Vulkan")
 
         std::vector<VkPhysicalDevice> vkDevices(deviceCount);
         vkEnumeratePhysicalDevices(this->_vulkanInstance, &deviceCount, vkDevices.data());
 
         this->_registerVulkanDevices(vkDevices);
+        this->_defaultDevice = this->_findDefaultDevice();
     }
 
     uint32_t VulkanUtility::getDeviceCount() {
@@ -170,20 +179,23 @@ namespace Venus::Plugins::Vulkan {
         return deviceCount;
     }
 
-    void VulkanUtility::_registerVulkanDevices(const std::vector<VkPhysicalDevice>& devices ) {
-        if(devices.empty())
-            VENUS_EXCEPT(InternalErrorException, "Could not find a graphics card that supports Vulkan")
+    std::shared_ptr<VulkanDevice> VulkanUtility::getDefaultDevice() {
+        return this->_defaultDevice;
+    }
+
+    void VulkanUtility::_registerVulkanDevices(const std::vector<VkPhysicalDevice> &devices) {
+        if (devices.empty()) VENUS_EXCEPT(InternalErrorException, "Could not find a graphics card that supports Vulkan")
 
         auto deviceInstances = this->_createVulkanDevices(devices);
 
-        this->_vulkanDevices.resize(deviceInstances.size());
         this->_vulkanDevices.insert(this->_vulkanDevices.end(), deviceInstances.begin(), deviceInstances.end());
     }
 
-    std::vector<std::shared_ptr<VulkanDevice>> VulkanUtility::_createVulkanDevices(const std::vector<VkPhysicalDevice>& physicalDevices) {
+    std::vector<std::shared_ptr<VulkanDevice>>
+    VulkanUtility::_createVulkanDevices(const std::vector<VkPhysicalDevice> &physicalDevices) {
         std::vector<std::shared_ptr<VulkanDevice>> devices;
 
-        for(int i = 0; i < physicalDevices.size(); i++){
+        for (int i = 0; i < physicalDevices.size(); i++) {
             auto device = std::make_shared<VulkanDevice>(physicalDevices[i], i);
             device->ignition();
             devices.push_back(device);
@@ -192,5 +204,18 @@ namespace Venus::Plugins::Vulkan {
         }
 
         return devices;
+    }
+
+    std::shared_ptr<VulkanDevice> VulkanUtility::_findDefaultDevice() {
+        for (auto device : this->_vulkanDevices) {
+            if (device->getDeviceProperties().deviceType == VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU)
+                return device;
+        }
+
+        return _vulkanDevices.at(0);
+    }
+
+    VulkanUtility::~VulkanUtility() {
+
     }
 }
