@@ -34,3 +34,6 @@
 [submodule "vendors/glslang"]
 	path = vendors/glslang
 	url = git@github.com:KhronosGroup/glslang.git
+[submodule "vendors/magic_enum"]
+	path = vendors/magic_enum
+	url = git@github.com:Neargye/magic_enum.git
