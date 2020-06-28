@@ -5,6 +5,8 @@
 #ifndef VENUS_RENDERSURFACE_H
 #define VENUS_RENDERSURFACE_H
 
+#include <vulkan/vulkan.h>
+
 #include <Error/venusExceptions.h>
 
 namespace Venus::Core::RenderApis {
@@ -22,8 +24,17 @@ namespace Venus::Core::RenderApis {
         /** Invoked every frame by the core thread */
         virtual void update() { throwNotImplement(); }
 
-        /** Returns the unique rendersurface id */
-        virtual uint32_t getId() { throwNotImplement(); }
+        /** Returns the unique render surface id */
+        virtual uint32_t getId() {
+            throwNotImplement();
+            return 0;
+        }
+
+        /** Returns a VK render surface for this instance*/
+        VkSurfaceKHR getVkRenderSurface() {
+            throwNotImplement();
+            return nullptr;
+        };
 
         /**
          * Resize the windows dimension
@@ -33,21 +44,25 @@ namespace Venus::Core::RenderApis {
          */
         virtual void resize(uint32_t width, uint32_t height) { throwNotImplement(); }
 
-        /** Called by the core thread when renderApi shutdowns */
-        virtual void shutdown() {}
-
         /**
          * Gets the render surface's extensions
          * @param extensionCount The extension Count
          * @return Pointer to extensions
          */
-        virtual const char **getExtensionCount(uint32_t &extensionCount) { throwNotImplement(); }
+        virtual std::vector<const char *> getExtensionCount() {
+            throwNotImplement();
+            return std::vector<const char *>();
+        }
+
+        /** Called by the core thread when renderApi shutdowns */
+        virtual void shutdown() {}
 
         virtual ~RenderSurface() = default;
 
     private:
+
         /** Throws a not implemented exception */
-        void throwNotImplement() {
+        static void throwNotImplement() {
             VENUS_EXCEPT(NotImplementedException, "Method has not been implement")
         }
     };
