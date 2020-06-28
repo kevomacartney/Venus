@@ -5,12 +5,17 @@
 #include "venusApplication.h"
 
 #include <spdlog/async.h>
-#include <Events/eventDispatcher.h>
 #include <spdlog/sinks/stdout_sinks.h>
 #include <spdlog/sinks/daily_file_sink.h>
+
+#include <Events/eventDispatcher.h>
 #include <Threading/TaskScheduler/taskScheduler.h>
 #include <Managers/renderWindowManager.h>
 #include <Plugins/VulkanApi/vulkanUtility.h>
+#include <CoreThread/coreThread.h>
+#include <Factories/loggingFactory.h>
+#include <Core/System/system.h>
+#include <Threading/threadPool.h>
 
 namespace Venus {
 

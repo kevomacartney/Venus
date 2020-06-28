@@ -6,18 +6,14 @@
 #define VENUS_VENUSAPPLICATION_H
 
 #include <memory>
-#include <spdlog/sinks/sink.h>
-#include <Utility/Time/vTime.h>
+
 #include <spdlog/spdlog.h>
-#include <Factories/loggingFactory.h>
-#include <Core/System/system.h>
-#include <Managers/renderWindowManager.h>
-#include <CoreThread/coreThread.h>
-#include <RenderAPIs/renderWindow.h>
+#include <spdlog/sinks/sink.h>
+
+#include <Utility/Time/vTime.h>
+
 #include <RenderAPIs/renderApi.h>
-#include <Threading/threadPool.h>
-#include <Events/eventDispatcher.h>
-#include <Threading/asyncWaitHandleImpl.h>
+
 
 namespace Venus {
     enum RenderSurfaceType {
