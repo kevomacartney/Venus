@@ -15,12 +15,12 @@ add_library(${MODULE_NAME} SHARED
         )
 
 target_link_libraries(${MODULE_NAME}
-        ${Vulkan_LIBRARIES}
         ${ENGINE_UTILITY_LIB_NAME}
+        ${Vulkan_LIBRARIES}
         )
 
 target_include_directories(${MODULE_NAME} PUBLIC .)
 
 install(TARGETS ${MODULE_NAME}
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-        PUBLIC_HEADER DESTINATION Venus/Engine/Core/Vulkan)
+        PUBLIC_HEADER DESTINATION Venus/Engine/)

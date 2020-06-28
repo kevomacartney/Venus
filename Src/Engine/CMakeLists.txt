@@ -4,6 +4,7 @@ set(ENGINE_NAME "Venus-Engine" CACHE INTERNAL "")
 set(VENUS_ENGINE_VERSION 1.0.1)
 project(${ENGINE_NAME} VERSION 1.0.1 DESCRIPTION "Venus Engine")
 
+# Set our library names
 set(CORE_LIB_NAME "Venus-Engine-Core" CACHE INTERNAL "")
 set(ENGINE_VULKAN_LIB_NAME "Venus-Engine-Vulkan" CACHE INTERNAL "")
 set(ENGINE_FACTORY_LIB_NAME "Venus-Engine-Factories" CACHE INTERNAL "")
@@ -12,25 +13,17 @@ set(ENGINE_GLFW_PLUGIN_LIB_NAME "Venus-Engine-Glfw" CACHE INTERNAL "")
 set(ENGINE_CORETHREAD_LIB_NAME "Venus-Engine-CoreThread" CACHE INTERNAL "")
 set(ENGINE_3DENGINE_LIB_NAME "Venus-Engine-3DEngine" CACHE INTERNAL "")
 
-set(VENDORS_DIR ${PROJECT_SOURCE_DIR}/vendors)
 
-message(STATUS "Build Venus-Engine: ${VENUS_ENGINE_VERSION}")
-
-#glfw
-set(GLFW_LIB_NAME glfw CACHE INTERNAL "")
-#ImGui
-set(IMGUI_LIB_NAME Venus-ImGui CACHE INTERNAL "")
-#Glm
-set(GLM_LIB_NAME glm CACHE INTERNAL "")
-#Backward stacktrace
-set(BACKWARD_NAME backward CACHE INTERNAL "")
-#spdlog
-set(SPDLOG_LIB_NAME spdlog CACHE INTERNAL "")
-#fmt
-set(FMT_LIB_NAME fmt CACHE INTERNAL "")
+# Set vendor library names
+set(GLFW_LIB_NAME glfw CACHE INTERNAL "GLFW")
+set(IMGUI_LIB_NAME Venus-ImGui CACHE INTERNAL "IMGUI")
+set(GLM_LIB_NAME glm CACHE INTERNAL "GLM")
+set(BACKWARD_NAME backward CACHE INTERNAL "Backward")
+set(SPDLOG_LIB_NAME spdlog CACHE INTERNAL "Spd Log")
+set(FMT_LIB_NAME fmt CACHE INTERNAL "Fmt Lib")
+set(MAGIC_ENUM_LIBNAME magic_enum CACHE INTERNAL "Magic Enum library")
 
 include(GNUInstallDirs)
-include(Plugins/Glfw/CMakeSources.cmake)
 
 # Add core
 add_subdirectory(Core)
@@ -50,25 +43,19 @@ add_subdirectory(CoreThread)
 add_subdirectory(3DEngine)
 
 # Sourcecode for startup class
-set(STARTUP_CLASS_SRC
+set(VENUS_APP_SRC
         venusApplication.h
         venusApplication.cpp
         )
 
 # project source code
 set(VENUS_ENGINE_SRC
-        ${STARTUP_CLASS_SRC}
-        ${GLFW_API_PLUGIN_SRC}
-        ${ENGINE_CORE_FACTORY_SRC})
+        ${VENUS_APP_SRC}
+        )
 
 add_library(${ENGINE_NAME} SHARED
         ${VENUS_ENGINE_SRC}
         )
-
-#include directories
-include_directories(${Vulkan_INCLUDE_DIRS})
-
-target_include_directories(${ENGINE_NAME} PUBLIC .)
 
 target_link_libraries(${ENGINE_NAME}
         ${CORE_LIB_NAME}
@@ -82,9 +69,9 @@ target_link_libraries(${ENGINE_NAME}
         ${GLM_LIB_NAME}
         ${SPDLOG_LIB_NAME}
         ${FMT_LIB_NAME}
-        ${Vulkan_LIBRARIES}
         )
 
+target_include_directories(${ENGINE_NAME} PUBLIC .)
 
 install(TARGETS ${ENGINE_NAME}
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}

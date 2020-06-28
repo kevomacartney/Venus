@@ -5,7 +5,6 @@ project(${MODULE_NAME} VERSION 1.0.1 DESCRIPTION "Venus Engine core")
 
 include(GNUInstallDirs)
 include(Renderer/CMakeSources.cmake)
-include(Vulkan/CMakeSources.cmake)
 include(RenderAPIs/CMakeSources.cmake)
 include(Managers/CMakeSources.cmake)
 include(System/CMakeSources.cmake)
@@ -28,12 +27,13 @@ target_link_libraries(${MODULE_NAME}
         ${ENGINE_VULKAN_LIB_NAME}
         ${ENGINE_UTILITY_LIB_NAME}
         ${ENGINE_GLFW_PLUGIN_LIB_NAME}
+        ${ENGINE_CORETHREAD_LIB_NAME}
+        ${ENGINE_3DENGINE_LIB_NAME}
         ${GLFW_LIB_NAME}
         ${IMGUI_LIB_NAME}
         ${GLM_LIB_NAME}
         ${SPDLOG_LIB_NAME}
-        ${ENGINE_CORETHREAD_LIB_NAME}
-        ${ENGINE_3DENGINE_LIB_NAME}
+        ${Vulkan_LIBRARIES}
         )
 
 target_include_directories(${MODULE_NAME} PUBLIC .)
