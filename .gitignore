@@ -372,9 +372,3 @@ _deps
 
 #Qt
 build-Venus-Sandbox
-
-# Vendors
-!vendors/
-vendors/*
-!vendors/CMakeLists.txt
-!vendors/imgui.cmake
