@@ -7,6 +7,7 @@
 
 #include <functional>
 #include <list>
+#include <cmath>
 
 namespace Venus::Utility::DataStructures {
     template<typename T>

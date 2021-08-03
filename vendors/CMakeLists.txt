@@ -1,11 +1,11 @@
-cmake_minimum_required(VERSION 3.15)
+cmake_minimum_required(VERSION 3.8)
 set(PROJECT_NAME Venus-Vendors)
 
 set(IOS_TOOLCHAIN_FILE ${CMAKE_CURRENT_SOURCE_DIR}/ios-cmake/ios.toolchain.cmake CACHE INTERNAL "")
 
 add_subdirectory(glfw)
 add_subdirectory(glm)
-add_subdirectory(imgui)
+include(imgui.cmake)
 add_subdirectory(rapidjson)
 add_subdirectory(backward-cpp)
 
