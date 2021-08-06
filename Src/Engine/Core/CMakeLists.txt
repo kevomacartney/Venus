@@ -28,7 +28,7 @@ target_link_libraries(${MODULE_NAME}
         ${ENGINE_UTILITY_LIB_NAME}
         ${ENGINE_GLFW_PLUGIN_LIB_NAME}
         ${ENGINE_CORETHREAD_LIB_NAME}
-        ${ENGINE_3DENGINE_LIB_NAME}
+        ${ENGINE_RENDERING_LIB_NAME}
         ${GLFW_LIB_NAME}
         ${IMGUI_LIB_NAME}
         ${GLM_LIB_NAME}

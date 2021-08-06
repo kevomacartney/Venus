@@ -32,7 +32,7 @@ namespace Venus {
         int Ignition(RenderSurfaceType applicationType = RenderSurfaceType::StandaloneModel);
 
         /** Sets the engines render surface, could be a viewport in an editor*/
-        void setRenderSurface(std::shared_ptr<Core::RenderApis::RenderSurface> renderSurface);
+        void setRenderSurface(std::shared_ptr<Core::Rendering3D::RenderSurface> renderSurface);
 
         /** Shuts down the application */
         void shutDown();
@@ -56,7 +56,7 @@ namespace Venus {
         virtual void postUpdate();
 
     private:
-        std::shared_ptr<Venus::Core::RenderApis::RenderApi> _renderApi{nullptr};
+        std::shared_ptr<Venus::Core::Rendering3D::RenderApi> _renderApi{nullptr};
         std::unique_ptr<Venus::Utility::Time::VTime> _time;
         std::shared_ptr<spdlog::logger> _logger;
 

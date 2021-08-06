@@ -30,14 +30,14 @@ namespace Venus::Core::Managers {
         void update();
 
         /** Creates a new render window and returns it's render API */
-        std::shared_ptr<RenderApis::RenderApi> createNewWindow(Plugins::Glfw::WindowDescription description);
+        std::shared_ptr<Rendering3D::RenderApi> createNewWindow(Plugins::Glfw::WindowDescription description);
 
         /**
          * Registers a new render API to the Manager
          * @note from this point the manager owns the api and will update it every frame
          * @param renderApi The render Api instance
          */
-        void registerRenderApi(std::shared_ptr<RenderApis::RenderApi> renderApi);
+        void registerRenderApi(std::shared_ptr<Rendering3D::RenderApi> renderApi);
 
         /**
          * Returns boolean indicating if the app should quit
@@ -75,7 +75,7 @@ namespace Venus::Core::Managers {
         std::shared_ptr<spdlog::logger> _logger;
 
         Mutex _windowsMutex{};
-        std::map<uint32_t, std::shared_ptr<RenderApis::RenderApi>> _renderSurfaces{};
+        std::map<uint32_t, std::shared_ptr<Rendering3D::RenderApi>> _renderSurfaces{};
 
     };
 }

@@ -31,7 +31,7 @@ namespace Venus::Plugins::Vulkan {
 
     void VulkanUtility::_throwIfUnsupportedWsiExtensions() const {
         for (auto ext : this->_extensions.Extensions) {
-            if (!VulkanUtility::_isSupportedVulkanExtension(ext)) {
+            if (!VulkanUtility::_isSupportedVulkanExtension(ext.c_str())) {
                 _logger->error(
                         "Vulkan extension '{}' from the RenderSurface's WSI is is not supported by the current installation",
                         ext);
@@ -91,7 +91,7 @@ namespace Venus::Plugins::Vulkan {
         VkInstanceCreateInfo createInfo{};
         createInfo.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
         createInfo.enabledExtensionCount = static_cast<int>(this->_extensions.Extensions.size());
-        createInfo.ppEnabledExtensionNames = this->_extensions.Extensions.data();
+        createInfo.ppEnabledExtensionNames = std::transform(this->_extensions.Extensions.begin(), this->_extensions.Extensions.end(), )
 
         return createInfo;
     }

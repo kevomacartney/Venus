@@ -11,9 +11,10 @@
 #include <memory>
 #include <Threading/threading.h>
 #include <Events/event.h>
-#include "renderSurface.h"
+#include <renderSurface.h>
+#include <renderSurfaceExtensions.h>
 
-namespace Venus::Core::RenderApis {
+namespace Venus::Core::Rendering {
     /**
      * A class that represents a render window that has size, handles, and position
      */
@@ -28,7 +29,7 @@ namespace Venus::Core::RenderApis {
         /** Called once per frame */
         void update() override;
 
-        /** @copydoc Venus::Core::RenderApis::RenderSurface */
+        /** @copydoc Venus::Core::Rendering::RenderSurface */
         void resize(uint32_t width, uint32_t height) override;
 
         /** Returns the id of the render window */
@@ -43,8 +44,8 @@ namespace Venus::Core::RenderApis {
         /** Called by the core thread when renderApi shutdowns  */
         void shutdown() override;
 
-        /** @copydoc Venus::Core::RenderApis::RenderSurface */
-        const char **getExtensionCount(uint32_t &extensionCount) override;
+        /** @copydoc Venus::Core::Rendering::RenderSurface */
+        RenderSurfaceExtensions getExtensionCount() override;
 
         /** Destructor*/
         ~RenderWindow() = default;

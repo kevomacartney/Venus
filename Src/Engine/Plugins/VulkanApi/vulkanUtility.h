@@ -19,8 +19,8 @@ namespace Venus::Plugins::Vulkan {
      * Extensions configuration for the the window system integration being used
      */
     struct WSIExtensions {
-        /** The extensions*/
-        std::vector<const char *> Extensions;
+        /** The vulkan surface extensions*/
+        std::vector<std::string> Extensions;
     };
 
     /**

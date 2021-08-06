@@ -1,12 +1,15 @@
 
 set(INCLUDE # include directories
         "renderSurface.h"
+        "renderSurfaceExtensions.h"
         )
+
+
 
 set(SRC # source directories
         )
 
-set(3DENGINE_SRC
+set(RENDERING_SRC
         ${INCLUDE}
         ${SRC}
         )

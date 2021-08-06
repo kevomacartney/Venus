@@ -22,10 +22,10 @@ namespace Venus::Core::Managers {
         }, CTQF_InternalQueue | CTQF_BlockUntilComplete);
     }
 
-    std::shared_ptr<RenderApis::RenderApi>
+    std::shared_ptr<Rendering3D::RenderApi>
     RenderWindowManager::createNewWindow(Plugins::Glfw::WindowDescription description) {
-        auto renderWindow  = std::make_shared<Venus::Core::RenderApis::RenderWindow>(description);
-        auto renderApi = std::make_shared<Venus::Core::RenderApis::RenderApi>(renderWindow);
+        auto renderWindow  = std::make_shared<Venus::Core::Rendering3D::RenderWindow>(description);
+        auto renderApi = std::make_shared<Venus::Core::Rendering3D::RenderApi>(renderWindow);
 
         renderApi->ignition();
 
@@ -71,7 +71,7 @@ namespace Venus::Core::Managers {
         return glm::vec2(videoMode->width, videoMode->height);
     }
 
-    void RenderWindowManager::registerRenderApi(std::shared_ptr<RenderApis::RenderApi> renderApi) {
+    void RenderWindowManager::registerRenderApi(std::shared_ptr<Rendering3D::RenderApi> renderApi) {
         Lock lock(this->_windowsMutex);
 
         this->_renderSurfaces.insert({renderApi->_renderSurface->getId(), renderApi});

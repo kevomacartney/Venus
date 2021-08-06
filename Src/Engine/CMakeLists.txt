@@ -11,7 +11,7 @@ set(ENGINE_FACTORY_LIB_NAME "Venus-Engine-Factories" CACHE INTERNAL "")
 set(ENGINE_UTILITY_LIB_NAME "Venus-Engine-Utility" CACHE INTERNAL "")
 set(ENGINE_GLFW_PLUGIN_LIB_NAME "Venus-Engine-Glfw" CACHE INTERNAL "")
 set(ENGINE_CORETHREAD_LIB_NAME "Venus-Engine-CoreThread" CACHE INTERNAL "")
-set(ENGINE_3DENGINE_LIB_NAME "Venus-Engine-3DEngine" CACHE INTERNAL "")
+set(ENGINE_RENDERING_LIB_NAME "Venus-Engine-Rendering" CACHE INTERNAL "")
 
 
 # Set vendor library names
@@ -40,7 +40,7 @@ add_subdirectory(Utility)
 # Corethread
 add_subdirectory(CoreThread)
 # 3d Engine
-add_subdirectory(3DEngine)
+add_subdirectory(Rendering)
 
 # Sourcecode for startup class
 set(VENUS_APP_SRC
@@ -63,7 +63,7 @@ target_link_libraries(${ENGINE_NAME}
         ${ENGINE_UTILITY_LIB_NAME}
         ${ENGINE_VULKAN_LIB_NAME}
         ${ENGINE_GLFW_PLUGIN_LIB_NAME}
-        ${ENGINE_3DENGINE_LIB_NAME}
+        ${ENGINE_RENDERING_LIB_NAME}
         ${GLFW_LIB_NAME}
         ${IMGUI_LIB_NAME}
         ${GLM_LIB_NAME}

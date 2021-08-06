@@ -7,13 +7,13 @@
 
 #include <memory>
 #include <coreThread.h>
-#include "renderSurface.h"
+#include <renderSurface.h>
 
 namespace Venus::Core::Managers {
     class RenderWindowManager;
 }
 
-namespace Venus::Core::RenderApis {
+namespace Venus::Core::Rendering {
     /**
      * Provides access to various render apis
      * @note Can be called from any thread

@@ -6,10 +6,11 @@
 #define VENUS_RENDERSURFACE_H
 
 #include <vulkan/vulkan.h>
-
 #include <Error/venusExceptions.h>
 
-namespace Venus::Core::RenderApis {
+#include "renderSurfaceExtensions.h"
+
+namespace Venus::Core::Rendering {
     /**
      * Represents a surface that can be rendered to by a render API
      */
@@ -45,13 +46,13 @@ namespace Venus::Core::RenderApis {
         virtual void resize(uint32_t width, uint32_t height) { throwNotImplement(); }
 
         /**
-         * Gets the render surface's extensions
+         * Gets the render surface's vulkan extensions
          * @param extensionCount The extension Count
          * @return Pointer to extensions
          */
-        virtual std::vector<const char *> getExtensionCount() {
+        virtual RenderSurfaceExtensions getExtensionCount() {
             throwNotImplement();
-            return std::vector<const char *>();
+            return {};
         }
 
         /** Called by the core thread when renderApi shutdowns */

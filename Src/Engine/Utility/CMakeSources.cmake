@@ -9,6 +9,7 @@ set(ENGINE_UTILITY_FREE_ROAMING_INC # files with folders
         PlatformDefines.h
         genericObject.h
         Module.h
+        StringOps.h
         )
 
 set(ENGINE_UTILITY_COMBINED_INC # include directories

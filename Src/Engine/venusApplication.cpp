@@ -24,10 +24,10 @@ namespace Venus {
     }
 
 
-    void VenusApplication::setRenderSurface(std::shared_ptr<Core::RenderApis::RenderSurface> renderSurface) {
+    void VenusApplication::setRenderSurface(std::shared_ptr<Core::Rendering3D::RenderSurface> renderSurface) {
         if (!renderSurface) VENUS_EXCEPT(InvalidOperationException, "Render surface must be an instance")
 
-        this->_renderApi = std::make_shared<Core::RenderApis::RenderApi>(renderSurface);
+        this->_renderApi = std::make_shared<Core::Rendering3D::RenderApi>(renderSurface);
     }
 
     int VenusApplication::Ignition(RenderSurfaceType applicationType) {
@@ -63,9 +63,14 @@ namespace Venus {
     void VenusApplication::_initialiseVulkan() {
         Plugins::Vulkan::WSIExtensions extensions;
 
-        extensions.Extensions = this->_renderApi
+        auto renderSurfaceExtensions = this->_renderApi
                 ->getRenderWindow()
                 ->getExtensionCount();
+
+        extensions.Extensions = std::vector<std::string>(
+                renderSurfaceExtensions.extensions,
+                renderSurfaceExtensions.extensions +
+                renderSurfaceExtensions.extensionCount);
 
         Module<Plugins::Vulkan::VulkanUtility>::ignite(extensions);
     }

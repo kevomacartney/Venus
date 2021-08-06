@@ -6,7 +6,7 @@
 
 #include <utility>
 
-namespace Venus::Core::RenderApis {
+namespace Venus::Core::Rendering {
 
     RenderApi::RenderApi(std::shared_ptr<RenderSurface> renderSurface)
             : _renderSurface(std::move(renderSurface)) {}

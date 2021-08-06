@@ -9,7 +9,7 @@
 #include <coreThread.h>
 
 using namespace Venus::Plugins::Glfw;
-namespace Venus::Core::RenderApis {
+namespace Venus::Core::Rendering {
     RenderWindow::RenderWindow(Plugins::Glfw::WindowDescription description) :
             _description(std::move(description)) {
         this->_glfwUtility = std::make_shared<Venus::Plugins::Glfw::GlfwUtility>();
@@ -83,15 +83,17 @@ namespace Venus::Core::RenderApis {
         RenderSurface::shutdown();
     }
 
-    const char **RenderWindow::getExtensionCount(uint32_t &extensionCount) {
+    RenderSurfaceExtensions RenderWindow::getExtensionCount() {
         Lock lock(this->_glftUtilMutex);
 
         const char **extensions{nullptr};
+        uint32_t extensionCount{0};
         getCoreThread()->queueCommand([&]() {
             extensions = this->_glfwUtility->getGlfwExtensions(extensionCount);
         }, CTQF_InternalQueue | CTQF_BlockUntilComplete);
 
-        return extensions;
+        RenderSurfaceExtensions renderSurfaceExtensions{extensionCount, extensions};
+        return renderSurfaceExtensions;
     }
 }
 
